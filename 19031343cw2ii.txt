@@ -1,0 +1,181 @@
+#!/bin/bash
+name=$1
+id=$2
+if [ $# != 2 ]     #Checking if there in no two arguments
+then
+echo "Please enter the username and ID that is seperated by space."
+exit
+echo
+fi
+if ! [[ "$2" =~ ^[+-]?[0-9]+$ ]]        #Checking if the second argument is integer or not
+then
+echo "The ID must be integer."
+exit
+fi
+secretkey="fifa"                        #This is our secret Key
+count=0
+until [ "$secretkey" = "$key" ]
+do
+((count++))
+if [ $count -gt 4 ]                     #Checking if the input count for secret key greater than 4
+then
+echo
+echo -e "\t\t\tThis is wrong secret key."
+echo
+exit
+fi
+echo
+echo -e "Enter the Secret Key:-\c"
+read key
+done
+echo "****---------------------------------------------------****"
+echo "        ***** Welcome To this program*****"
+echo "                      Name:-$1"
+echo "                      ID:-$2"
+echo "                      Date:-$(date)"
+echo "****----------------------------------------------------****"
+
+function repeat(){                #Creating a new function
+echo
+echo "--------------------------------------------------"
+echo "|       *Country Name*     |     *Country Code*  |"
+echo "--------------------------------------------------"
+echo "|            Brazil        |           BRZ       |"
+echo "|            Argentina     |           ARG       |"
+echo "|            Nepal         |           NEP       |"
+echo "|            China         |           CHI       |"
+echo "|            England       |           ENG       |"
+echo "--------------------------------------------------"
+
+function win(){
+echo
+echo -e "Please!! Enter the country code of best football team:-\c"
+read code
+sleep 1
+echo
+}
+
+win=ENG
+code=ste
+until [ "$code" == "$win" ]
+do
+win                    #Calling the function
+if [ "$code" == "$win" ]
+then
+echo "Congratulation!! You have selected the best football team."
+echo
+echo "      *****Short Description About England*****          "
+echo
+echo "           England has won 1 world cup "
+echo "           Harry Kane is the captain of England"
+echo "           Wayne Rooney is the top scorer of England"
+echo "----------------------------------------------------------"
+echo
+else
+echo "Sorry....your input is incorrect please! enter the correct code."
+echo
+fi
+done
+echo
+
+function stars(){
+echo "**----------------------------------------------**"
+echo "|         *Player Name*     |      *Player Code* |"
+echo "--------------------------------------------------"
+echo "|          Lionel Messi     |       LM           |"
+echo "|          Neymar Junior    |       NJ           |"
+echo "|          Kiran Chemjong   |       KC           |"
+echo "|          Zheng Zhi        |       ZZ           |"
+echo "|          Harry Kane       |       HK           |"
+echo "--------------------------------------------------"
+echo
+
+while :             #Using while loop for the validiation of data
+do
+echo -e "Please choose any three players and enter their codes:- \c"
+read player1 player2 player3
+player1=${player1^^}
+player2=${player2^^}
+player3=${player3^^}
+    if [[ "$player1" == "$player2" || "$player2" == "$player3" || "$player1" == "$player3" ]]
+       then
+            echo "Invalid Entry! Enter three player code that must be unique and seperated by space."
+
+      elif [[ "$player1" != "LM" && "$player1" != "NJ" && "$player1" != "KC" && "$player1" != "ZZ" && "$player1" != "HK" ]]
+         then
+             echo "Invalid Entry! Please enter any three player code form above table."
+      elif [[ "$player2" != "LM" && "$player2" != "NJ" && "$player2" != "KC" && "$player2" != "ZZ" && "$player2" != "HK" ]]
+         then
+             echo "Invalid Entry! Please enter any three player code from above table."
+      elif [[ "$player3" != "LM" && "$player3" != "NJ" && "$player3" != "KC" && "$player3" != "ZZ" && "$player3" != "HK" ]]
+      then
+            echo "Invalid Entry!! You cannot enter more than three players."
+      echo
+      else
+      break
+    fi
+done
+PS3="Please choose any one of the number: "
+select STAR in $player1 $player2 $player3
+        do
+               if [ -z "$STAR" ]
+                  then
+                        echo
+                        echo "Invalid Entry! Try Again:"
+                        echo
+                        continue
+               elif [[ "$STAR" == "LM" ]]
+                    then
+                          echo
+                          cat LM
+               elif [[ "$STAR" == "NJ" ]]
+                    then
+                         echo
+                         cat NJ
+               elif [[ "$STAR" == "HK" ]]
+                    then
+                         echo
+                         cat HK
+               elif [[ "$STAR" != "LM" && "$STAR" != "NJ" && "$STAR" != "HK" ]]
+                     then
+                             echo
+                             echo "There is no file !! Please select from LM, NJ, HK"
+                             echo
+                             echo  "We are switching back to selection of football player."
+                             echo
+                             stars         #Calling the function
+               fi
+       break
+       done
+}
+}
+
+function terminate(){             #Creating new function to repeat or terminate the program
+
+echo
+echo -e "Would you like to repeat the process (y/n) :-\c"
+read result
+
+case $result in                   #Using Case statement whether to repeat the program or end it.
+Y|y)
+repeat
+stars
+terminate
+;;
+N|n)
+echo
+echo -e "We are Exiting the Program....."
+exit
+;;
+*)
+echo "Invalid Entry!!"
+terminate      #Calling the function
+;;
+esac
+
+}
+repeat
+stars
+terminate      #Calling the functions
+
+
